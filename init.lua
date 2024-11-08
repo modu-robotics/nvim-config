@@ -1,6 +1,6 @@
-require("core.options")
-require("core.keymaps")
-require("core.snippets")
+require("options")
+require("keymaps")
+require("snippets")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -17,7 +17,7 @@ require("lazy").setup({
 	require("plugins.nvim-spectre"),
 	require("plugins.telescope"),
 	require("plugins.nvim-lspconfig"),
-	require("plugins.conform.nvim"),
+	require("plugins.conform"),
 	require("plugins.nvim-cmp"),
 	require("plugins.catppuccin-latte"),
 	require("plugins.todo-comments"),
