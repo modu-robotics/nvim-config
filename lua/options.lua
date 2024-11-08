@@ -1,4 +1,5 @@
 vim.g.have_nerd_font = true
+
 vim.opt.breakindent = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.cursorline = true

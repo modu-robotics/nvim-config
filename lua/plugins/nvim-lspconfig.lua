@@ -1,12 +1,10 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+		{ "williamboman/mason.nvim", config = true },
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-
 		{ "j-hui/fidget.nvim", opts = {} },
-
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
@@ -18,22 +16,16 @@ return {
 				end
 
 				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-
 				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-
 				map("<leader>sds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-
 				map("<leader>sws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-
 				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-
 				map("K", vim.lsp.buf.hover, "Hover Documentation")
-
 				map("gh", ":ClangdSwitchSourceHeader<CR>", "[G]oto [H]eader")
 
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 				if client and client.server_capabilities.documentHighlightProvider then
-					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+					local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = event.buf,
 						group = highlight_augroup,
@@ -67,7 +59,11 @@ return {
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		local servers = {
-			clangd = {},
+			clangd = {
+				handlers = {
+					["textDocument/publishDiagnostics"] = function() end,
+				},
+			},
 			pyright = {},
 			lua_ls = {
 				settings = {
